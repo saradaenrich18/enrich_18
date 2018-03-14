@@ -3,8 +3,8 @@
 int main() 
 {
     float matrix[10][10];
-    int n;
-    float x, a[10], det = 1;
+    int n,r;
+    float x, a[10], det = 1,c;
     scanf("%d", &n);
     for(int i = 0; i < n; i++)
     {
@@ -24,11 +24,33 @@ int main()
             }
             else
             {
-                x = ((double)matrix[i][j] / matrix[j][j]);
-                for(int k = 0; k < n; k++)
+                if(matrix[j][j]!=0)
                 {
-                    a[k] = x * matrix[j][k];
-                    matrix[i][k] = matrix[i][k] - a[k];
+                    x = ((double)matrix[i][j] / matrix[j][j]);
+                    for(int k = 0; k < n; k++)
+                    {
+                        a[k] = x * matrix[j][k];
+                        matrix[i][k] = matrix[i][k] - a[k];
+                    }
+                }
+                else
+                {
+                    while(matrix[j][j] == 0)
+                    {
+                        r = (j+1)%n;
+                        for(int k = 0; k < n; k++)
+                        {
+                            c = matrix[j][k];
+                            matrix[j][k] = matrix[r][k];
+                            matrix[r][k] = c;
+                        }
+                    }
+                    x = ((double)matrix[i][j] / matrix[j][j]);
+                    for(int k = 0; k < n; k++)
+                    {
+                        a[k] = x * matrix[j][k];
+                        matrix[i][k] = matrix[i][k] - a[k];
+                    }
                 }
             }
         }
